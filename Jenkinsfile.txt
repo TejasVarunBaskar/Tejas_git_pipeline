@@ -1,0 +1,64 @@
+pipeline {
+    agent any
+    stages {
+        stage('Build') {
+            steps {
+                echo 'Task: Compiling and Packaging the Code using Maven'
+                writeFile file: 'build.log', text: 'Building the code using Maven.'
+            }
+        }
+        stage('Unit and Integration Tests') {
+            steps {
+                echo 'Task: Running Unit Tests and Integration Tests'
+                echo 'Tools: JUnit for unit tests, Cucumber for integration tests'
+                // Create a log file for unit and integration tests
+                writeFile file: 'tests.log', text: 'Running unit and integration tests.'
+            }
+            post {
+                always {
+                    emailext (
+                        to: "tejasvarunbaskar@gmail.com",
+                        subject: "Unit and Integration Tests Status Email",
+                        body: "Unit and integration tests log attached!",
+                        attachmentsPattern: "*.log"
+                    )
+                }
+            }
+        }
+        stage('Code Analysis') {
+            steps {
+                echo 'Task: Analyzing Code Quality with SonarQube'
+                echo 'Tool: SonarQube'
+            }
+        }
+        stage('Security Scan') {
+            steps {
+                echo 'Task: Performing Security Scan using Snyk'
+                echo 'Tool: Snyk'
+                writeFile file: 'security_scan.log', text: 'Performing security scan using Snyk.'
+            }
+            post {
+                always {
+                    emailext (
+                        to: "tejasvarunbaskar@gmail.com",
+                        subject: "Security Scan Status Email",
+                        body: "Security scan log attached!",
+                        attachmentsPattern: "*.log"
+                    )
+                }
+            }
+        }
+        stage('Integration Tests on Staging') {
+            steps {
+                echo 'Task: Running Integration Tests on Staging Environment'
+                echo 'Tool: Docker Compose'
+            }
+        }
+        stage('Deploy to Production') {
+            steps {
+                echo 'Task: Deploying to Production Server using Kubernetes'
+                echo 'Tool: Kubernetes'
+            }
+        }
+    }
+}
