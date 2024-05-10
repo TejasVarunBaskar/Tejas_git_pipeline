@@ -11,7 +11,6 @@ pipeline {
             steps {
                 echo 'Task: Running Unit Tests and Integration Tests'
                 echo 'Tools: JUnit for unit tests, Cucumber for integration tests'
-                // Create a log file for unit and integration tests
                 writeFile file: 'tests.log', text: 'Running unit and integration tests.'
             }
             post {
