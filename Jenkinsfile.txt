@@ -4,6 +4,7 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Task: Compiling and Packaging the Code using Maven'
+                echo 'Tool: Maven'
             }
         }
         stage('Unit and Integration Tests') {
