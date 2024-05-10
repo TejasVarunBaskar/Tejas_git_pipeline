@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                echo 'Task:Compiling and Packaging the Code using Maven'
+                echo 'Task: Compiling and Packaging the Code using Maven'
                 writeFile file: 'build.log', text: 'Building the code using Maven.'
             }
         }
